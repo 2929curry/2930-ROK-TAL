@@ -43,55 +43,48 @@
         }
 
         .section-item {
-            display: flex;
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
             gap: 15px;
-            padding: 20px;
+            padding: 18px 20px;
             border-radius: 12px;
             background: #f0f4ff;
             border: 2px solid #d0deff;
-            align-items: center;
+            align-items: start;
         }
 
         .section-item.section-3 {
-            background: linear-gradient(135deg, #fff9e6 0%, #fffaed 100%);
+            background: #fffbf0;
             border-color: #ffc107;
         }
 
         .section-item.section-4 {
-            background: linear-gradient(135deg, #fff8f0 0%, #fffbf7 100%);
-            border-color: #ffc9a0;
+            background: #fffbf7;
+            border-color: #ffccb3;
         }
 
         .section-number {
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 55px;
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, #4668ff 0%, #0051d5 100%);
             color: white;
-            font-size: 1.6em;
+            font-size: 1.5em;
             font-weight: bold;
             border-radius: 8px;
             flex-shrink: 0;
         }
 
         .section-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .section-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .section-icon {
-            font-size: 1.8em;
+            font-size: 1.6em;
             flex-shrink: 0;
         }
 
@@ -105,16 +98,32 @@
 
         .section-content p {
             color: #666;
-            font-size: 1.1em;
-            line-height: 1.6;
+            font-size: 1em;
+            line-height: 1.5;
             margin: 0;
             text-align: left;
         }
 
         .section-note {
+            color: #999;
+            font-size: 0.95em;
+            margin: 5px 0 0 0;
+            display: block;
+        }
+
+        .section-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .section-right {
+            text-align: right;
             color: #666;
-            font-size: 1.1em;
-            margin-left: 0;
+            font-size: 1em;
+            flex-shrink: 0;
+            white-space: normal;
+            line-height: 1.5;
         }
 
         .sub-hero {
@@ -281,19 +290,13 @@
                 html += `
                     <div class="section-item ${sectionClass}">
                         <div class="section-number">${i}</div>
-                        <div class="section-content">
-                            <div class="section-header">
+                        <div class="section-info">
+                            <div class="section-content">
                                 ${sec.icon ? `<span class="section-icon">${sec.icon}</span>` : ''}
                                 <h3>${sec.title}</h3>
                             </div>
                             <p>${sec.content || ''}</p>
-                `;
-
-                if (sec.note) {
-                    html += `<p class="section-note">- ${sec.note}</p>`;
-                }
-
-                html += `
+                            ${sec.note ? `<p class="section-note">- ${sec.note}</p>` : ''}
                         </div>
                     </div>
                 `;
