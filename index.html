@@ -28,35 +28,35 @@
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .header h1 {
-            font-size: 2.5em;
+            font-size: 2.8em;
             color: #333;
-            margin-bottom: 10px;
         }
 
         .sections {
             display: grid;
-            gap: 15px;
+            gap: 16px;
             margin-bottom: 40px;
         }
 
         .section-item {
             display: flex;
-            align-items: flex-start;
             gap: 20px;
-            padding: 20px;
+            padding: 24px;
             border-radius: 12px;
             background: #f0f4ff;
             border: 2px solid #d0deff;
+            align-items: flex-start;
         }
 
         .section-number {
             display: flex;
             align-items: center;
             justify-content: center;
+            min-width: 60px;
             width: 60px;
             height: 60px;
             background: linear-gradient(135deg, #4668ff 0%, #0051d5 100%);
@@ -69,13 +69,14 @@
 
         .section-content h3 {
             color: #333;
-            font-size: 1.2em;
+            font-size: 1.15em;
             margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .section-content p {
             color: #666;
-            font-size: 1em;
+            font-size: 0.95em;
             line-height: 1.5;
             margin-bottom: 8px;
         }
@@ -86,36 +87,32 @@
             border-radius: 12px;
             padding: 20px;
             margin-top: 20px;
-            margin-left: 0;
             display: flex;
-            align-items: flex-start;
             gap: 15px;
+            align-items: flex-start;
         }
 
         .sub-hero-icon {
             font-size: 1.8em;
-            margin-top: 3px;
+            flex-shrink: 0;
         }
 
         .sub-hero-content h4 {
             color: #333;
-            font-size: 1.1em;
-            margin-bottom: 8px;
+            font-size: 1.05em;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .sub-hero-content p {
             color: #666;
-            font-size: 0.95em;
+            font-size: 0.9em;
             line-height: 1.6;
             margin-bottom: 8px;
         }
 
-        .table-section h2 {
-            font-size: 1.5em;
-            color: #333;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #4668ff;
+        .table-section {
+            margin-top: 40px;
         }
 
         table {
@@ -133,8 +130,8 @@
             padding: 16px 12px;
             text-align: center;
             font-weight: 600;
-            font-size: 0.95em;
-            border-right: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9em;
+            border-right: 1px solid rgba(255,255,255,0.1);
         }
 
         th:last-child {
@@ -146,7 +143,7 @@
             text-align: center;
             border-bottom: 1px solid #e0e0e0;
             border-right: 1px solid #e0e0e0;
-            font-size: 1.05em;
+            font-size: 1em;
             color: #333;
             font-weight: 500;
         }
@@ -179,7 +176,7 @@
 
         .footer-section p {
             color: #666;
-            font-size: 0.95em;
+            font-size: 0.9em;
             margin-bottom: 8px;
             line-height: 1.6;
         }
@@ -200,7 +197,6 @@
             border-radius: 12px;
             padding: 20px;
             color: #c62828;
-            margin-top: 20px;
         }
     </style>
 </head>
@@ -227,41 +223,41 @@
                 renderPage(data);
             } catch (error) {
                 document.getElementById('content').innerHTML =
-                    `<div class="error">데이터 로드 실패: ${error.message}</div>`;
+                    `<div class="error">❌ 데이터 로드 실패: ${error.message}</div>`;
             }
         }
 
         function renderPage(data) {
-            const sections = data.sections;
-            const teams = data.teams;
-            const footer = data.footer;
+            const sections = data.sections || {};
+            const teams = data.teams || [];
+            const footer = data.footer || [];
 
             let html = '<div class="sections">';
 
             for (let i = 1; i <= 4; i++) {
                 const sec = sections[i];
-                if (!sec) continue;
+                if (!sec || !sec.title) continue;
 
                 html += `
                     <div class="section-item">
                         <div class="section-number">${i}</div>
                         <div class="section-content">
-                            <h3>${sec.icon} ${sec.title}</h3>
-                            <p>${sec.content}</p>
+                            <h3>${sec.icon || ''} ${sec.title}</h3>
+                            <p>${sec.content || ''}</p>
                 `;
 
                 if (sec.note) {
-                    html += `<p style="margin-top: 8px; font-size: 0.9em; color: #999;">- ${sec.note}</p>`;
+                    html += `<p style="font-size: 0.85em; color: #999;">- ${sec.note}</p>`;
                 }
 
                 if (i === 3 && sec.subtitle) {
                     html += `
                         <div class="sub-hero">
-                            <div class="sub-hero-icon">${sec.icon_sub}</div>
+                            <div class="sub-hero-icon">${sec.icon_sub || '⭐'}</div>
                             <div class="sub-hero-content">
                                 <h4>${sec.subtitle}</h4>
-                                <p>${sec.ranks}</p>
-                                <p>💡 ${sec.note_sub}</p>
+                                <p>${sec.ranks || ''}</p>
+                                <p>💡 ${sec.note_sub || ''}</p>
                             </div>
                         </div>
                     `;
@@ -275,38 +271,40 @@
 
             html += '</div>';
 
-            html += `
-                <div class="table-section">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>1열</th>
-                                <th>2열</th>
-                                <th>3열</th>
-                                <th>4열</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-            `;
-
-            teams.forEach(team => {
+            if (teams.length > 0) {
                 html += `
-                    <tr>
-                        <td class="location-col">${team.location}</td>
-                        <td>${team.col1}</td>
-                        <td>${team.col2}</td>
-                        <td>${team.col3}</td>
-                        <td>${team.col4 || '-'}</td>
-                    </tr>
+                    <div class="table-section">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>구분</th>
+                                    <th>1열</th>
+                                    <th>2열</th>
+                                    <th>3열</th>
+                                    <th>4열</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                 `;
-            });
 
-            html += `
-                        </tbody>
-                    </table>
-                </div>
-            `;
+                teams.forEach(team => {
+                    html += `
+                        <tr>
+                            <td class="location-col">${team.location}</td>
+                            <td>${team.col1}</td>
+                            <td>${team.col2}</td>
+                            <td>${team.col3}</td>
+                            <td>${team.col4 || '-'}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
 
             if (footer.length > 0) {
                 html += '<div class="footer-section">';
