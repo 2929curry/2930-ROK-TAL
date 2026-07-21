@@ -44,46 +44,77 @@
 
         .section-item {
             display: flex;
-            gap: 25px;
-            padding: 28px;
+            gap: 15px;
+            padding: 20px;
             border-radius: 12px;
             background: #f0f4ff;
             border: 2px solid #d0deff;
-            align-items: flex-start;
+            align-items: center;
         }
 
-        .section-content {
-            flex: 1;
+        .section-item.section-3 {
+            background: linear-gradient(135deg, #fff9e6 0%, #fffaed 100%);
+            border-color: #ffc107;
+        }
+
+        .section-item.section-4 {
+            background: linear-gradient(135deg, #fff8f0 0%, #fffbf7 100%);
+            border-color: #ffc9a0;
         }
 
         .section-number {
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 90px;
-            width: 90px;
-            height: 90px;
+            min-width: 55px;
+            width: 55px;
+            height: 55px;
             background: linear-gradient(135deg, #4668ff 0%, #0051d5 100%);
             color: white;
-            font-size: 1.8em;
+            font-size: 1.6em;
             font-weight: bold;
-            border-radius: 12px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .section-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            font-size: 1.8em;
             flex-shrink: 0;
         }
 
         .section-content h3 {
             color: #333;
-            font-size: 2.1em;
-            margin-bottom: 15px;
+            font-size: 1.4em;
             font-weight: 600;
+            margin: 0;
             text-align: left;
         }
 
         .section-content p {
             color: #666;
-            font-size: 1.5em;
-            line-height: 1.8;
-            margin-bottom: 10px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin: 0;
+            text-align: left;
+        }
+
+        .section-note {
+            color: #666;
+            font-size: 1.1em;
+            margin-left: 0;
         }
 
         .sub-hero {
@@ -245,17 +276,27 @@
                 const sec = sections[i];
                 if (!sec || !sec.title) continue;
 
+                const sectionClass = i === 3 ? 'section-3' : (i === 4 ? 'section-4' : '');
+
                 html += `
-                    <div class="section-item">
+                    <div class="section-item ${sectionClass}">
                         <div class="section-number">${i}</div>
                         <div class="section-content">
-                            <h3>${sec.icon || ''} ${sec.title}</h3>
+                            <div class="section-header">
+                                ${sec.icon ? `<span class="section-icon">${sec.icon}</span>` : ''}
+                                <h3>${sec.title}</h3>
+                            </div>
                             <p>${sec.content || ''}</p>
                 `;
 
                 if (sec.note) {
-                    html += `<p style="font-size: 0.85em; color: #999;">- ${sec.note}</p>`;
+                    html += `<p class="section-note">- ${sec.note}</p>`;
                 }
+
+                html += `
+                        </div>
+                    </div>
+                `;
 
                 if (i === 3 && sec.subtitle) {
                     html += `
@@ -269,11 +310,6 @@
                         </div>
                     `;
                 }
-
-                html += `
-                        </div>
-                    </div>
-                `;
             }
 
             html += '</div>';
