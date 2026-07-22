@@ -306,41 +306,44 @@
                             <p class="section-content-text">${sec.content || ''}</p>
                             ${sec.note ? `<p class="section-note">- ${sec.note}</p>` : ''}
                         </div>
-                    </div>
-                `;
-            }
-
-            if (teams.length > 0) {
-                html += `
-                    <div class="table-section">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>구분</th>
-                                    <th>1</th>
-                                    <th>2</th>
-                                    <th>3</th>
-                                    <th>4</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                 `;
 
-                teams.forEach(team => {
+                if (i === 5 && teams.length > 0) {
                     html += `
-                        <tr>
-                            <td class="location-col">${team.location}</td>
-                            <td>${team.col1}</td>
-                            <td>${team.col2}</td>
-                            <td>${team.col3}</td>
-                            <td>${team.col4 || '-'}</td>
-                        </tr>
+                        <div class="table-section">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>구분</th>
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                     `;
-                });
+
+                    teams.forEach(team => {
+                        html += `
+                            <tr>
+                                <td class="location-col">${team.location}</td>
+                                <td>${team.col1}</td>
+                                <td>${team.col2}</td>
+                                <td>${team.col3}</td>
+                                <td>${team.col4 || '-'}</td>
+                            </tr>
+                        `;
+                    });
+
+                    html += `
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                }
 
                 html += `
-                            </tbody>
-                        </table>
                     </div>
                 `;
             }
