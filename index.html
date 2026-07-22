@@ -64,16 +64,14 @@
         }
 
         .section-item.section-5 {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .section-item.section-5 .section-number {
-            margin-bottom: 16px;
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            gap: 15px;
         }
 
         .section-item.section-5 .table-section {
-            margin-top: 0;
+            grid-column: 1 / -1;
+            margin-top: 16px;
         }
 
         .section-number {
