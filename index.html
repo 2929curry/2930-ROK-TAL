@@ -103,6 +103,7 @@
             margin: 5px 0 0 0;
             text-align: left;
             font-weight: bold;
+            padding-left: 2.5em;
         }
 
         .section-note {
@@ -111,6 +112,7 @@
             margin: 5px 0 0 0;
             display: block;
             text-align: left;
+            padding-left: 2.5em;
         }
 
         .section-info {
@@ -162,7 +164,7 @@
         }
 
         .table-section {
-            margin-top: 16px;
+            margin-top: 0;
         }
 
         table {
@@ -308,8 +310,6 @@
                 `;
             }
 
-            html += '</div>';
-
             if (teams.length > 0) {
                 html += `
                     <div class="table-section">
@@ -344,6 +344,8 @@
                     </div>
                 `;
             }
+
+            html += '</div>';
 
             if (footer.length > 0) {
                 html += '<div class="footer-section">';
