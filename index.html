@@ -274,8 +274,8 @@
     <div class="container">
         <div class="header">
             <h1>🎮 2930 ROK TAL</h1>
-            <button id="downloadBtn" style="margin-top: 10px; padding: 10px 20px; font-size: 1em; cursor: pointer; background: #4668ff; color: white; border: none; border-radius: 6px;">📥 화면 저장</button>
         </div>
+        <button id="downloadBtn" style="position: fixed; top: 20px; right: 20px; padding: 12px 24px; font-size: 1.1em; cursor: pointer; background: #4668ff; color: white; border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1000;">📥 화면 저장</button>
         <div id="content" class="loading">데이터 로딩 중...</div>
     </div>
 
@@ -388,7 +388,9 @@
 
             html2canvas(document.querySelector('.container'), {
                 backgroundColor: '#ffffff',
-                scale: 2
+                scale: 3,
+                logging: false,
+                useCORS: true
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.href = canvas.toDataURL('image/png');
