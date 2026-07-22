@@ -286,7 +286,7 @@
 
             let html = '<div class="sections">';
 
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 5; i++) {
                 const sec = sections[i];
                 if (!sec || !sec.title) continue;
 
@@ -305,19 +305,6 @@
                         </div>
                     </div>
                 `;
-
-                if (i === 3 && sec.subtitle) {
-                    html += `
-                        <div class="sub-hero">
-                            <div class="sub-hero-icon">${sec.icon_sub || '⭐'}</div>
-                            <div class="sub-hero-content">
-                                <h4>${sec.subtitle}</h4>
-                                <p>${sec.ranks || ''}</p>
-                                <p>💡 ${sec.note_sub || ''}</p>
-                            </div>
-                        </div>
-                    `;
-                }
             }
 
             html += '</div>';
