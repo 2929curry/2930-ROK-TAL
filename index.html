@@ -274,10 +274,12 @@
     <div class="container">
         <div class="header">
             <h1>🎮 2930 ROK TAL</h1>
+            <button id="downloadBtn" style="margin-top: 10px; padding: 10px 20px; font-size: 1em; cursor: pointer; background: #4668ff; color: white; border: none; border-radius: 6px;">📥 화면 저장</button>
         </div>
         <div id="content" class="loading">데이터 로딩 중...</div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9nXxUVqfX8ChwVEcs3-7Qi7ApostyvrfAydfDF6iOrDLT6I3uSx9o-lmK3d0G5o0H5g/exec";
 
@@ -378,6 +380,30 @@
 
         loadData();
         setInterval(loadData, 5 * 60 * 1000);
+
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const btn = this;
+            btn.disabled = true;
+            btn.textContent = '⏳ 처리 중...';
+
+            html2canvas(document.querySelector('.container'), {
+                backgroundColor: '#ffffff',
+                scale: 2
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = '2930_ROK_TAL_' + new Date().toISOString().slice(0, 10) + '.png';
+                link.click();
+
+                btn.disabled = false;
+                btn.textContent = '📥 화면 저장';
+            }).catch(err => {
+                console.error('화면 저장 실패:', err);
+                alert('화면 저장에 실패했습니다.');
+                btn.disabled = false;
+                btn.textContent = '📥 화면 저장';
+            });
+        });
     </script>
 </body>
 </html>
