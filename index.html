@@ -63,6 +63,19 @@
             border-color: #ffccb3;
         }
 
+        .section-item.section-5 {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-item.section-5 .section-number {
+            margin-bottom: 16px;
+        }
+
+        .section-item.section-5 .table-section {
+            margin-top: 0;
+        }
+
         .section-number {
             display: flex;
             align-items: center;
@@ -293,7 +306,7 @@
                 const sec = sections[i];
                 if (!sec || !sec.title) continue;
 
-                const sectionClass = i === 3 ? 'section-3' : (i === 4 ? 'section-4' : '');
+                const sectionClass = i === 3 ? 'section-3' : (i === 4 ? 'section-4' : (i === 5 ? 'section-5' : ''));
 
                 html += `
                     <div class="section-item ${sectionClass}">
